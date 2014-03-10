@@ -1,0 +1,22 @@
+ public TreeNode buildTree(int[] preorder, int[] inorder) {
+       return preHelper(inorder,0,inorder.length-1,preorder,0,preorder.length-1);
+    }
+     public  TreeNode preHelper(int[] inorder, int start, int end,int[] preorder, int low, int high ){
+	   if(start >end || low> high)
+		   return null;
+	   int mid1 = 0;
+	 
+	   int rec = preorder[low];
+	   TreeNode root = new TreeNode(rec);
+	   for(int i =start;i<=end;i++)
+		   if(rec == inorder[i]){
+			   mid1 = i;
+			   break;
+		   }
+	   
+	   
+	   root.left = preHelper(inorder,start,mid1-1,preorder,low+1,low+mid1-start);
+	   root.right = preHelper(inorder,mid1+1,end,preorder,low+mid1-start+1,high);
+	   return root;
+	    
+   }
