@@ -1,0 +1,23 @@
+public   TreeNode buildTree(int[] inorder, int[] postorder) {
+    	int size = inorder.length;
+    	return helper(inorder,0,size-1,postorder,0,size-1);
+    }
+   public   TreeNode helper(int[] inorder, int start, int end,int[] postorder, int low, int high ){
+	   if(start >end || low> high)
+		   return null;
+	   int mid1 = 0;
+	   
+	   int rec = postorder[high];
+	   TreeNode root = new TreeNode(rec);
+	   for(int i =start;i<=end;i++)
+		   if(rec == inorder[i]){
+			   mid1 = i;
+			   break;
+		   }
+	   
+	  
+	   root.left = helper(inorder,start,mid1-1,postorder,low,low+mid1-1-start);
+	   root.right = helper(inorder,mid1+1,end,postorder,low+mid1-start,high-1);
+	   return root;
+	   
+   }
